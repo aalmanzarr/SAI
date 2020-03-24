@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {View, Text, Button} from 'react-native';
 
-export default class Notas extends Component {
+export default class Profile extends Component {
     render() {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',  }}>
-                <Text >NOTAS</Text>
+                <Text >PERFIL</Text>
             </View>
         );
     }
