@@ -1,6 +1,6 @@
 import {View} from "react-native";
 import {NavigationContainer} from "@react-navigation/native";
-import Grades from "./Grades";
+import Grades from "./Groups";
 import {Button} from "react-native-elements";
 import React, {Component} from "react";
 
@@ -8,17 +8,6 @@ class Home extends Component{
     constructor(props) {
         super(props);
         this.state={};
-
-        this.goToMaterias = this.goToMaterias.bind(this);
-        this.goToProfile = this.goToProfile.bind(this);
-    }
-
-    goToMaterias(){
-
-    }
-
-    goToProfile(){
-
     }
 
     render() {
@@ -39,7 +28,7 @@ class Home extends Component{
                         title="Materias"
                         type="clear"
                         buttonStyle={{width:'100%'}}
-                        onPress={() => this.props.navigation.navigate('grades')}
+                        onPress={() => this.props.navigation.navigate('Subjects')}
                     />
                 </View>
                 <View style={{flex: 3, flexDirection: 'row'}}>
@@ -49,7 +38,7 @@ class Home extends Component{
                         title="Perfil"
                         type="clear"
                         buttonStyle={{width:'100%'}}
-                        onPress={() => this.props.navigation.navigate('profile')}
+                        onPress={() => this.props.navigation.navigate('Profile')}
                     />
                 </View>
             </View>

@@ -6,11 +6,11 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-import Grades from './components/screens/Grades';
+import Grades from './components/screens/Groups';
 import Courses from './components/screens/Courses';
 import Profile from './components/screens/Profile';
 import Settings from './components/screens/Settings';
-import Homepage from "./components/screens/Homepage";
+import Main from "./components/screens/Main";
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -24,12 +24,13 @@ export default function App() {
                     <Text style={{color: 'white', fontSize:22, marginLeft: 5}}>EAFIT</Text>
                 </View>
                 <Tab.Navigator
-                    initialRouteName="Homepage"
+                    initialRouteName="Main"
                     activeColor="#FFFFFF"
                     inactiveColor="#FFFFFF"
-                    barStyle={{backgroundColor: '#000068'}}>
+                    barStyle={{backgroundColor: '#000068'}}
+                    labeled={false}>
                     <Tab.Screen
-                        name="settings"
+                        name="Settings"
                         component={Settings}
                         options={{
                             tabBarLabel: 'Ajustes',
@@ -37,15 +38,15 @@ export default function App() {
                         }}
                     />
                     <Tab.Screen
-                        name="Homepage"
-                        component={Homepage}
+                        name="Main"
+                        component={Main}
                         options={{
                             tabBarLabel: 'Inicio',
                             tabBarIcon: () => <Icon name="home" size={25} color={'#ffffff'}/>,
                         }}
                     />
                     <Tab.Screen
-                        name="profile"
+                        name="Profile"
                         component={Profile}
                         options={{
                             tabBarLabel: 'Perfil',

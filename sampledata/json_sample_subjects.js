@@ -21,7 +21,7 @@ export const JSONSampleSubject = [
             "evaluacionesProgramadas": "4",
             "registroCompleto": "0"
         }, {
-            "vigente": "N",
+            "vigente": "S",
             "semestre": "20192",
             "matCodigo": "DE0059",
             "gruCodigo": "003",
