@@ -31,6 +31,7 @@ class Dashboard extends Component{
                         justifyContent: 'center',
                         alignItems: 'center',
                         height: 70,
+<<<<<<< HEAD
                         backgroundColor: '#d0d3d4',
                             }}>
                             <Icon name="university" size={25} color="#000000" />
@@ -42,13 +43,30 @@ class Dashboard extends Component{
                         activeColor="#000000"
                         inactiveColor="#000000"
                         barStyle={{backgroundColor: '#d0d3d4'}}
+=======
+                        backgroundColor: '#000068',
+                            }}>
+                            <Icon name="university" size={25} color="#ffffff" />
+                            <Text style={{color: 'white', fontSize: 22, marginLeft: 5}}>EAFIT</Text>
+                        </View>
+                    
+                    <Tab.Navigator
+                        initialRouteName="Main"
+                        activeColor="#FFFFFF"
+                        inactiveColor="#FFFFFF"
+                        barStyle={{backgroundColor: '#000068'}}
+>>>>>>> 9b2cc7e3b4aa040489cb77ee3d67b28e4f4e3732
                         labeled={false}>
                         <Tab.Screen
                         name="Settings"
                         component={Settings}
                         options={{
                             tabBarLabel: 'Ajustes',
+<<<<<<< HEAD
                             tabBarIcon: () => <Icon name="cog" size={25} color={'#000000'} />,
+=======
+                            tabBarIcon: () => <Icon name="cog" size={25} color={'#ffffff'} />,
+>>>>>>> 9b2cc7e3b4aa040489cb77ee3d67b28e4f4e3732
                         }}
                         />
                         <Tab.Screen
@@ -56,7 +74,11 @@ class Dashboard extends Component{
                             component={Main}
                             options={{
                                 tabBarLabel: 'Inicio',
+<<<<<<< HEAD
                                 tabBarIcon: () => <Icon name="home" size={25} color={'#000000'} />,
+=======
+                                tabBarIcon: () => <Icon name="home" size={25} color={'#ffffff'} />,
+>>>>>>> 9b2cc7e3b4aa040489cb77ee3d67b28e4f4e3732
                             }}
                             />
                             <Tab.Screen
@@ -64,16 +86,28 @@ class Dashboard extends Component{
                             component={Profile}
                             options={{
                                 tabBarLabel: 'Perfil',
+<<<<<<< HEAD
                                 tabBarIcon: () => <Icon name="user" size={25} color="#000000" />,
+=======
+                                tabBarIcon: () => <Icon name="user" size={25} color="#ffffff" />,
+>>>>>>> 9b2cc7e3b4aa040489cb77ee3d67b28e4f4e3732
                             }}
                             />
                      </Tab.Navigator>
 
+<<<<<<< HEAD
 
+=======
+              
+>>>>>>> 9b2cc7e3b4aa040489cb77ee3d67b28e4f4e3732
             </NavigationContainer>
 
         );
     }
 }
 
+<<<<<<< HEAD
 export default Dashboard;
+=======
+export default Dashboard;
+>>>>>>> 9b2cc7e3b4aa040489cb77ee3d67b28e4f4e3732

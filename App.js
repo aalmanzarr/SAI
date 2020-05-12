@@ -15,8 +15,8 @@ import Dashboard from './components/screens/Dashboard';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
-
 export default function App() {
+<<<<<<< HEAD
     return (
 
         <NavigationContainer>
@@ -34,4 +34,21 @@ export default function App() {
             </Stack.Navigator>
         </NavigationContainer>
     );
+=======
+  return (
+   
+    <NavigationContainer>
+    <Stack.Navigator
+    screenOptions={{
+                    headerShown: false
+                }}>
+      <Stack.Screen
+        name="Login"
+        component={Login}
+      />
+      <Stack.Screen name="Main" component={Dashboard} />
+    </Stack.Navigator>
+  </NavigationContainer>
+  );
+>>>>>>> 9b2cc7e3b4aa040489cb77ee3d67b28e4f4e3732
 }
