@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, Button} from 'react-native';
 import {JSONSampleSubject} from "../../sampledata/json_sample_subjects";
 import { ListItem } from 'react-native-elements';
+import {SaiActions} from "../../_actions/sai.actions";
 
 export default class Subjects extends Component {
 
@@ -13,8 +14,10 @@ export default class Subjects extends Component {
     }
 
     componentDidMount() {
-        this.setState({
-            Subjects: JSONSampleSubject
+        SaiActions.getAllSubjects().then(data => {
+            this.setState({
+                Subjects: data
+            })
         })
     }
 
@@ -36,7 +39,7 @@ export default class Subjects extends Component {
                     titleStyle={{fontSize: 25 }}
                     subtitleStyle={{ fontWeight: 'bold', fontSize: 18}}
                     chevron = {{ color: 'black', size: 20 }}
-                    onPress={() => this.props.navigation.navigate('Groups', { screen: 'Groups',  groupCode: Subjects[key].codigo})}
+                    onPress={() => this.props.navigation.navigate('Groups', { screen: 'Groups',  subjectId: Subjects[key].id})}
                     bottomDivider
                 />
             );

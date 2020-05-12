@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, Button} from 'react-native';
 import {JSONSampleSubject} from "../../sampledata/json_sample_subjects";
 import { ListItem } from 'react-native-elements';
+import {SaiActions} from "../../_actions/sai.actions";
 
 export default class Groups extends Component {
 
@@ -13,21 +14,13 @@ export default class Groups extends Component {
     }
 
     componentDidMount() {
-        let allSubjects = JSONSampleSubject;
-        let groupCode = this.props.route.params.groupCode;
-        let groups = [];
-
-        for(let key in allSubjects){
-            if(allSubjects[key].codigo === groupCode){
-                groups = allSubjects[key].grupos;
-            }
-        }
-        this.setState({
-            Groups: groups
-        })
+        let subjectId = this.props.route.params.subjectId;
+        SaiActions.getAllGroupsBySubject(subjectId).then(data => {
+            this.setState({
+                Groups: data
+            })
+        });
     }
-
-
 
     render() {
         const {Groups} = this.state;
@@ -46,7 +39,7 @@ export default class Groups extends Component {
                 <ListItem
                     key={key}
                     style={Groups[key].vigente === 'S' ? activeGroupStyle : disabledGroupStyle}
-                    title={Groups[key].matCodigo + " - " + Groups[key].gruCodigo}
+                    title={Groups[key].semestre + " - " + Groups[key].gruCodigo}
                     titleStyle={{fontSize: 25 }}
                     chevron = {{ color: 'black', size: 20 }}
                     bottomDivider
