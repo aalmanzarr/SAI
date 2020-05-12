@@ -21,6 +21,22 @@ export const JSONSampleEval = [
                 "estudiantesActivos": "35",
                 "evaluacionesProgramadas": "4",
                 "registroCompleto": "0"
+            },{
+                "vigente": "N",
+                "semestre": "20191",
+                "matCodigo": "ST0234",
+                "gruCodigo": "032",
+                "tipoCurso": "N/A",
+                "gruCupoMaximo": "0",
+                "convenio": "N/A",
+                "fechaInicial": "20190715",
+                "fechaFinal": "20191101",
+                "sede": "MEDELLÍN",
+                "grupoConvenio": "N/A",
+                "grupoUnion": "N/A",
+                "estudiantesActivos": "35",
+                "evaluacionesProgramadas": "4",
+                "registroCompleto": "0"
             },
             {
                 "vigente": "N",

@@ -6,6 +6,22 @@ export const JSONSampleSubject = [
         "codigoPrograma": "0",
         "grupos": [{
             "vigente": "N",
+            "semestre": "20182",
+            "matCodigo": "ST0034",
+            "gruCodigo": "031",
+            "tipoCurso": "N/A",
+            "gruCupoMaximo": "0",
+            "convenio": "N/A",
+            "fechaInicial": "20190715",
+            "fechaFinal": "20191101",
+            "sede": "MEDELLÍN",
+            "grupoConvenio": "N/A",
+            "grupoUnion": "N/A",
+            "estudiantesActivos": "35",
+            "evaluacionesProgramadas": "4",
+            "registroCompleto": "0"
+        },{
+            "vigente": "N",
             "semestre": "20192",
             "matCodigo": "DE0059",
             "gruCodigo": "001",
