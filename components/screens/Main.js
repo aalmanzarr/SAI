@@ -9,6 +9,7 @@ import {createStackNavigator} from "@react-navigation/stack";
 import Home from "./Home";
 import Profile from "./Profile";
 import Subjects from "./Subjects";
+import Evaluations from "./Evaluations";
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,7 @@ class Main extends Component{
                     <Stack.Screen name='Profile' component={Profile} />
                     <Stack.Screen name='Subjects' component={Subjects} />
                     <Stack.Screen name='Groups' component={Grades} />
+                    <Stack.Screen name='Evaluations' component={Evaluations} />
                 </Stack.Navigator>
             </NavigationContainer>
         );

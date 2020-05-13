@@ -34,11 +34,11 @@ class Dashboard extends Component{
                         backgroundColor: '#d0d3d4',
                     }}>
                     <Icon name="university" size={25} color="#000000" />
-                    <Text style={{color: 'black', fontSize: 22, marginLeft: 5}}>EAFIT</Text>
+                    <Text style={{color: 'black', fontSize: 22, marginLeft: 5}}>SAI - SIRENA</Text>
                 </View>
 
                 <Tab.Navigator
-                    initialRouteName="Profile"
+                    initialRouteName="Main"
                     activeColor="#000000"
                     inactiveColor="#000000"
                     barStyle={{backgroundColor: '#d0d3d4'}}

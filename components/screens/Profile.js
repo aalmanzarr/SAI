@@ -5,13 +5,12 @@ export default class Profile extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',  }}>
-                <Text >PERFIL</Text>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+                <Text style={{marginBottom: 18}} >PERFIL</Text>
                 <Button
-                    title="no sirve aun jeje saludos (pa logout) "
+                    title="LOGOUT"
                     type="clear"
                     buttonStyle={{width:'100%'}}
-
                 />
             </View>
         );

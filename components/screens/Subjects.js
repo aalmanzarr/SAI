@@ -14,14 +14,9 @@ export default class Subjects extends Component {
     }
 
     componentDidMount() {
-        SaiActions.getAllSubjects().then(data => {
-            this.setState({
-                Subjects: data
-            })
-        })
+        let subjects = this.props.route.params.subjects;
+        this.setState({Subjects: subjects});
     }
-
-
 
     render() {
         const {Subjects} = this.state;
@@ -39,7 +34,7 @@ export default class Subjects extends Component {
                     titleStyle={{fontSize: 25 }}
                     subtitleStyle={{ fontWeight: 'bold', fontSize: 18}}
                     chevron = {{ color: 'black', size: 20 }}
-                    onPress={() => this.props.navigation.navigate('Groups', { screen: 'Groups',  subjectId: Subjects[key].id})}
+                    onPress={() => this.props.navigation.navigate('Groups', { screen: 'Groups',  groups: Subjects[key].grupos, subjectCode: Subjects[key].codigo})}
                     bottomDivider
                 />
             );
@@ -49,7 +44,17 @@ export default class Subjects extends Component {
             <View style={{flex: 2, flexDirection: 'row'}}>
                 <View style={{width:'100%', height:'100%'}}>
                     <View>
-                        {subjectArray}
+                        {
+                            subjectArray.length > 0 ?
+                                subjectArray
+                            :
+                                <Text style={{
+                                    fontWeight: "bold",
+                                    textAlign: "center",
+                                    marginTop: "49%",
+                                    fontSize: 25
+                                }}>0 Materias Encontradas !!</Text>
+                        }
                     </View>
                 </View>
             </View>
