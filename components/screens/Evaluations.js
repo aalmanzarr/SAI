@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {ListItem} from "react-native-elements";
 import {View} from "react-native";
+import{ScrollView} from "react-native";
 
 class Evaluations extends Component{
     constructor(props) {
@@ -18,7 +19,7 @@ class Evaluations extends Component{
         let detalle = Eval.detalle;
         let notaMinima = Eval.escalaMinimo;
         let notaMaxima = Eval.escalaMaximo;
-        let notaAprueba = sEval.escalaAprueba;
+        let notaAprueba = Eval.escalaAprueba;
 
         this.setState({
             detalle: detalle,
@@ -63,7 +64,10 @@ class Evaluations extends Component{
             <View style={{flex: 2, flexDirection: 'row'}}>
                 <View style={{width:'100%', height:'100%'}}>
                     <View>
-                        {evalArray}
+                       <ScrollView>
+                         {evalArray}
+                        </ScrollView> 
+                       
                     </View>
                 </View>
             </View>
