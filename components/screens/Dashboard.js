@@ -19,7 +19,7 @@ const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 
-class Dashboard extends Component{
+class Dashboard extends Component {
     render() {
         return(
             <NavigationContainer independent={true}>
@@ -67,6 +67,7 @@ class Dashboard extends Component{
                             tabBarIcon: () => <Icon name="user" size={25} color="#000000" />,
                         }}
                     />
+
                 </Tab.Navigator>
 
 

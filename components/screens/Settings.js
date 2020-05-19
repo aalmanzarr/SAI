@@ -7,6 +7,7 @@ export default class Settings extends Component {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',  }}>
                 <Text >AJUSTES</Text>
+                <Button title="Go back" onPress={() => navigation.pop()} />
             </View>
         );
     }
