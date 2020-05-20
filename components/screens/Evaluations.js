@@ -56,7 +56,7 @@ class Evaluations extends Component{
                     style={detalle[key].notaAcumulada > notaAprueba ? greaterThanSuccess : detalle[key].notaAcumulada === notaAprueba ? mediumSuccess : lowerThanSuccess}
                     titleStyle={{fontSize: 25 }}
                     chevron = {{ color: 'blue', size: 20 }}
-                    onPress={() => this.props.navigation.navigate('Notas')}
+                    onPress={() => this.props.navigation.navigate('Notas', { screen: 'Notas',  detalle: detalle[key]})}
                     bottomDivider
 
                 />
