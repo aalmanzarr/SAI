@@ -25,10 +25,9 @@ export default class Notas extends Component {
             evalArray.push(
                 <ListItem
                     key={key}
-                    title="Test"
+                    title={detalle[key].nombreEvaluacion}
                     titleStyle={{fontSize: 25 }}
                     chevron = {{ color: 'blue', size: 20 }}
-                    onPress={() =>  console.log(detalle[key])}
                     bottomDivider
 
                 />
