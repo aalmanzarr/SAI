@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {View, Text, Button} from 'react-native';
-import Login from './Login';
 export default class Profile extends Component {
 
     render() {
@@ -11,6 +10,7 @@ export default class Profile extends Component {
                     title="LOGOUT"
                     type="clear"
                     buttonStyle={{width:'100%'}}
+
                 />
             </View>
         );

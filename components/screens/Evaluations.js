@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {ListItem} from "react-native-elements";
 import {View} from "react-native";
 import{ScrollView} from "react-native";
+import {Button} from "react-native-elements";
 
 class Evaluations extends Component{
     constructor(props) {
@@ -54,8 +55,10 @@ class Evaluations extends Component{
                     title={detalle[key].nombreEstudiante + " - " + detalle[key].codigoEstudiante}
                     style={detalle[key].notaAcumulada > notaAprueba ? greaterThanSuccess : detalle[key].notaAcumulada === notaAprueba ? mediumSuccess : lowerThanSuccess}
                     titleStyle={{fontSize: 25 }}
-                    chevron = {{ color: 'black', size: 20 }}
+                    chevron = {{ color: 'blue', size: 20 }}
+                    onPress={() => this.props.navigation.navigate('Notas')}
                     bottomDivider
+
                 />
             );
         }
@@ -63,9 +66,12 @@ class Evaluations extends Component{
         return (
             <View style={{flex: 2, flexDirection: 'row'}}>
                 <View style={{width:'100%', height:'100%'}}>
-                    <ScrollView>
-                         {evalArray}
-                    </ScrollView>
+                    <View>
+                        <ScrollView>
+                            {evalArray}
+                        </ScrollView>
+
+                    </View>
                 </View>
             </View>
         );

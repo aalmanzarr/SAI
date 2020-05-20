@@ -35,6 +35,8 @@ class Dashboard extends Component {
                     }}>
                     <Icon name="university" size={25} color="#000000" />
                     <Text style={{color: 'black', fontSize: 22, marginLeft: 5}}>SAI - SIRENA</Text>
+
+
                 </View>
 
                 <Tab.Navigator

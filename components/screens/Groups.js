@@ -66,6 +66,7 @@ export default class Groups extends Component {
                     <ScrollView style={{flex:1}}>
                         {groupsArray}
                     </ScrollView>
+
                 </View>
             </View>
         );

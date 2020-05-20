@@ -10,6 +10,8 @@ import Home from "./Home";
 import Profile from "./Profile";
 import Subjects from "./Subjects";
 import Evaluations from "./Evaluations";
+import Notas from './Notas';
+import Login from './Login';
 
 const Stack = createStackNavigator();
 
@@ -26,6 +28,8 @@ class Main extends Component{
                     <Stack.Screen name='Subjects' component={Subjects} />
                     <Stack.Screen name='Groups' component={Grades} />
                     <Stack.Screen name='Evaluations' component={Evaluations} />
+                    <Stack.Screen name='Notas' component={Notas} />
+                    <Stack.Screen name='Login' component={Login} />
                 </Stack.Navigator>
             </NavigationContainer>
         );
