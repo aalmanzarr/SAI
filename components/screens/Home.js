@@ -1,4 +1,4 @@
-import {Modal, Text, TouchableHighlight, View} from "react-native";
+import {ActivityIndicator, Modal, Text, TouchableHighlight, View} from "react-native";
 import {NavigationContainer} from "@react-navigation/native";
 import Grades from "./Groups";
 import {Button} from "react-native-elements";
@@ -9,7 +9,8 @@ class Home extends Component{
     constructor(props) {
         super(props);
         this.state={
-            modalVisible: false
+            modalVisible: false,
+            isLoading: false
         };
     }
 
@@ -18,19 +19,24 @@ class Home extends Component{
     };
 
     getGroups(type){
+        this.setState({
+            isLoading: true
+        });
         SaiActions.getAllSubjects(type).then(data => {
-            console.log("data", data);
             if(data === 0 || data === 1 || data.error){
                 alert("Error al tratar de consultar materias");
             }else{
                 this.setModalVisible(false);
+                this.setState({
+                    isLoading: false
+                });
                 this.props.navigation.navigate('Subjects', { screen: 'Subjects',  subjects: data});
             }
         })
     }
 
     render() {
-        const { modalVisible } = this.state;
+        const { modalVisible, isLoading } = this.state;
 
         return(
             <View style={{
@@ -42,6 +48,7 @@ class Home extends Component{
                 height: '100%',
                 alignContent: 'center',
                 alignItems: 'center'}}>
+                {isLoading ? <ActivityIndicator size="large" color="#0000ff"/>: null}
                 <View style={{flex: 2, flexDirection: 'row', marginTop: '40%'}}>
                     <Button
                         icon={{type:'font-awesome',name:"list", size:50, color:"#000000"}}
