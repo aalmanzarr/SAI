@@ -40,18 +40,19 @@ export default class Notas extends Component {
                         <ScrollView>
                             {evalArray}
                         </ScrollView>
-                        <Button
-                            title="back"
-                            buttonStyle={{
-                                width:'50%',
 
-
-                            }}
-                            onPress={() => this.props.navigation.pop()}
-
-                        />
 
                     </View>
+                    <Button
+                        title="basck"
+                        buttonStyle={{
+                            width:'50%',
+
+
+                        }}
+                        onPress={() => this.props.navigation.pop()}
+
+                    />
                 </View>
             </View>
 
