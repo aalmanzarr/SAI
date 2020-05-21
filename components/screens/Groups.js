@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, Button, ScrollView} from 'react-native';
+import {View, Text, Button, ScrollView, ActivityIndicator} from 'react-native';
 import {JSONSampleSubject} from "../../sampledata/json_sample_subjects";
 import { ListItem } from 'react-native-elements';
 import {SaiActions} from "../../_actions/sai.actions";
@@ -9,7 +9,8 @@ export default class Groups extends Component {
     constructor(props) {
         super(props);
         this.state={
-            Groups: []
+            Groups: [],
+            isLoading: false
         };
     }
 
@@ -22,12 +23,17 @@ export default class Groups extends Component {
     }
 
     getEval(semestre, grupo){
+        this.setState({
+            isLoading: true
+        });
         if(semestre, grupo){
             SaiActions.getEvaluation(semestre, this.props.route.params.subjectCode , grupo).then(data => {
                 if(data.error || !data){
                     alert("Error accediendo a los datos del grupo");
                 }else{
-                    console.log("data retreived", data);
+                    this.setState({
+                        isLoading: false
+                    });
                     this.props.navigation.navigate('Evaluations', { screen: 'Evaluations',  evaluations: data})
                 }
             });
@@ -35,7 +41,7 @@ export default class Groups extends Component {
     }
 
     render() {
-        const {Groups} = this.state;
+        const {Groups,isLoading} = this.state;
 
         let activeGroupStyle = {marginTop:'3%', marginLeft: 3, borderLeftWidth: 5,
             borderLeftColor: 'green',
@@ -63,6 +69,9 @@ export default class Groups extends Component {
         return (
             <View style={{flex: 1}}>
                 <View style={{flex: 1, width:'100%', height:'100%'}}>
+                    <View>
+                        {isLoading ? <ActivityIndicator size="large" color="#0000ff"/> : null}
+                    </View>
                     <ScrollView style={{flex:1}}>
                         {groupsArray}
                     </ScrollView>

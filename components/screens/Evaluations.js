@@ -56,7 +56,12 @@ class Evaluations extends Component{
                     style={detalle[key].notaAcumulada > notaAprueba ? greaterThanSuccess : detalle[key].notaAcumulada === notaAprueba ? mediumSuccess : lowerThanSuccess}
                     titleStyle={{fontSize: 25 }}
                     chevron = {{ color: 'blue', size: 20 }}
-                    onPress={() => this.props.navigation.navigate('Notas', { screen: 'Notas',  detalle: detalle[key].evaluaciones})}
+                    onPress={() => this.props.navigation.navigate('Notas', {
+                        screen: 'Notas',
+                        detalle: detalle[key].evaluaciones,
+                        notaMax: notaMaxima,
+                        notaMin: notaMinima,
+                        notaApru: notaAprueba})}
                     bottomDivider
 
                 />
@@ -70,7 +75,6 @@ class Evaluations extends Component{
                         <ScrollView>
                             {evalArray}
                         </ScrollView>
-
                     </View>
                 </View>
             </View>
