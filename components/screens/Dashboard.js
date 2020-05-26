@@ -37,7 +37,7 @@ class Dashboard extends Component {
                         backgroundColor: '#d0d3d4',
                     }}>
                     <Image source={{uri: 'https://i.imgur.com/ezfzI8j.png'}}
-                           style={{width: 270, height: 50,marginTop:0}} />
+                           style={{width: 270, height: 50}} />
 
 
                 </View>
