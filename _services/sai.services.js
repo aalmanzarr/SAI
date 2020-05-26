@@ -4,6 +4,7 @@ export const SaiServices = {
     getAllSubjects,
     getGroupsBySubject,
     getEvaluation,
+    saveNotas,
     login
 };
 
@@ -28,6 +29,23 @@ async function getEvaluation(semestre, materia, grupo) {
         };
         let UrlPost = `http://daphne.eafit.edu.co/sirena-test/api/sirena?method=getEvaluations&semestre=${semestre}&materia=${materia}&grupo=${grupo}`;
         console.log("URL POST", UrlPost);
+        return fetch(UrlPost, requestOptions).then(handleResponse)
+    }
+}
+
+async function saveNotas(semestre, materia, grupo, notas) {
+    if (semestre && materia && grupo){
+        let header = await authHeader();
+
+        const requestOptions = {
+            headers: header,
+            method: 'POST',
+            body: JSON.stringify(notas)
+        };
+
+        let UrlPost = `http://daphne.eafit.edu.co/sirena-test/api/sirena?method=saveEvaluations&semestre=${semestre}&materia=${materia}&grupo=${grupo}`;
+        console.log("URL POST", UrlPost);
+        console.log("Object", JSON.stringify(notas));
         return fetch(UrlPost, requestOptions).then(handleResponse)
     }
 }

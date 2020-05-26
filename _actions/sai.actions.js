@@ -4,11 +4,16 @@ export const SaiActions = {
     getAllSubjects,
     getAllGroupsBySubject,
     getEvaluation,
+    saveNotas,
     login,
 };
 
 function getAllSubjects(type) {
     return SaiServices.getAllSubjects(type);
+}
+
+function saveNotas(semestre, materia, grupo, notas) {
+    return SaiServices.saveNotas(semestre, materia, grupo, notas);
 }
 
 function getEvaluation(semestre, materia, grupo) {
