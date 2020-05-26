@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, Image} from "react-native";
+import {Text, View, Image, BackHandler} from 'react-native';
 import { Card, ListItem, Button } from 'react-native-elements'
 import {IconButton} from "react-native-paper";
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -16,6 +16,26 @@ import Login from './Login';
 const Stack = createStackNavigator();
 
 class Main extends Component{
+    /**
+    constructor() {
+        super();
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+
+
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+
+    handleBackButtonClick() {
+
+        this.props.navigation.pop();
+
+        return true;
+    }
+    **/
     render() {
         return(
             <NavigationContainer independent={true}>

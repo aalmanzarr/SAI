@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, Button, ScrollView, ActivityIndicator} from 'react-native';
+import {View, Text, Button, ScrollView, ActivityIndicator, BackHandler} from 'react-native';
 import {JSONSampleSubject} from "../../sampledata/json_sample_subjects";
 import { ListItem } from 'react-native-elements';
 import {SaiActions} from "../../_actions/sai.actions";
@@ -12,6 +12,21 @@ export default class Groups extends Component {
             Groups: [],
             isLoading: false
         };
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+
+
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+
+    handleBackButtonClick() {
+
+        this.props.navigation.pop();
+
+        return true;
     }
 
     componentDidMount() {

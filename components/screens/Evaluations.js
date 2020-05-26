@@ -1,9 +1,10 @@
 import React, {Component} from "react";
 import {Icon, Input, ListItem, Text} from "react-native-elements";
-import {View} from "react-native";
+import {BackHandler, View} from 'react-native';
 import{ScrollView} from "react-native";
 import {Button} from "react-native-elements";
 import {SaiActions} from "../../_actions/sai.actions";
+
 
 class Evaluations extends Component{
     constructor(props) {
@@ -20,8 +21,22 @@ class Evaluations extends Component{
         this.compare2 = this.compare2.bind(this);
         this.sort = this.sort.bind(this);
         this.saveNotas = this.saveNotas.bind(this);
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
     }
 
+
+
+componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+}
+
+handleBackButtonClick() {
+
+    this.props.navigation.pop();
+
+    return true;
+}
     componentDidUpdate(prevProps, prevState, snapshot) {
         let {canChange, evaluacionesCambiadas} = this.state;
         let add = true;

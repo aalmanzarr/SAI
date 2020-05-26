@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, Button} from 'react-native';
+import {View, Text, Button, BackHandler} from 'react-native';
 import {JSONSampleSubject} from "../../sampledata/json_sample_subjects";
 import { ListItem } from 'react-native-elements';
 import {SaiActions} from "../../_actions/sai.actions";
@@ -11,7 +11,23 @@ export default class Subjects extends Component {
         this.state={
             Subjects: []
         };
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
     }
+
+
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+
+    handleBackButtonClick() {
+
+        this.props.navigation.pop();
+
+        return true;
+    }
+
 
     componentDidMount() {
         let subjects = this.props.route.params.subjects;

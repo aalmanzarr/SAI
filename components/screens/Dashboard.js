@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, Image} from "react-native";
+import {Text, View, Image, BackHandler} from 'react-native';
 import { Card, ListItem, Button } from 'react-native-elements'
 import {IconButton} from "react-native-paper";
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -20,6 +20,9 @@ const Tab = createMaterialBottomTabNavigator();
 
 
 class Dashboard extends Component {
+
+
+
     render() {
         return(
             <NavigationContainer independent={true}>
@@ -33,8 +36,8 @@ class Dashboard extends Component {
                         height: 70,
                         backgroundColor: '#d0d3d4',
                     }}>
-                    <Image source={{uri: 'https://i.imgur.com/0Uxn98O.png'}}
-                           style={{width: 300, height: 60}} />
+                    <Image source={{uri: 'https://i.imgur.com/ezfzI8j.png'}}
+                           style={{width: 270, height: 50,marginTop:0}} />
 
 
                 </View>
