@@ -34,7 +34,7 @@ export default class Groups extends Component {
                     this.setState({
                         isLoading: false
                     });
-                    this.props.navigation.navigate('Evaluations', { screen: 'Evaluations',  evaluations: data})
+                    this.props.navigation.navigate('Evaluations', { screen: 'Evaluations',  evaluations: data, semestre: semestre , materia: this.props.route.params.subjectCode, grupo: grupo})
                 }
             });
         }
@@ -75,7 +75,6 @@ export default class Groups extends Component {
                     <ScrollView style={{flex:1}}>
                         {groupsArray}
                     </ScrollView>
-
                 </View>
             </View>
         );
