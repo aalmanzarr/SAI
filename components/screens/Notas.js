@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, Button, ScrollView} from 'react-native';
-import {ListItem} from 'react-native-elements';
+import {Input, ListItem} from 'react-native-elements';
+import { BackHandler } from 'react-native';
 
 
 export default class Notas extends Component {
@@ -9,35 +10,91 @@ export default class Notas extends Component {
         this.state = {
             detalle: [],
             evaluacionesCambiadas: []
-        }
+        };
 
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+
+    handleBackButtonClick() {
+        if(this.state.evaluacionesCambiadas && this.state.evaluacionesCambiadas.length > 0) {
+            let evaluacionesCambiadas = {
+                codigoEstudiante: this.props.route.params.codigoEstudiante,
+                evaluaciones: this.state.evaluacionesCambiadas
+            };
+            this.props.navigation.navigate('Evaluations', {
+                changedEvaluations: evaluacionesCambiadas,
+                lastModified: this.props.route.params.codigoEstudiante,
+                canChange: true
+            });
+        }else{
+            this.props.navigation.navigate('Evaluations');
+        }
+        return true;
     }
 
     componentDidMount() {
         let detalle = this.props.route.params.detalle;
-
+        let ev = this.props.route.params.evaluacionesCambiadas;
         this.setState({
             detalle: detalle,
+            evaluacionesCambiadas: ev
         })
     }
 
-    changeGrade(text, puedeMod, key, diasAntes, diasDespues){
+    changeGrade(text, puedeMod, key, diasAntes, diasDespues, onlyNumber){
+        let notaMax = this.props.route.params.notaMax;
+        let notaMin = this.props.route.params.notaMin;
+        let notaApru = this.props.route.params.notaApru;
         if(puedeMod === '1'){
+            var reg = /^\d+$/;
+            if((onlyNumber && reg.test(text) && parseInt(text) <= parseInt(notaMax) && parseInt(text) >= parseInt(notaMin)) || text === '') {
+                let AAAAMMDDda = diasAntes.split("-"); //año mes dia - dias antes
+                let AAAAMMDDdd = diasDespues.split("-"); //año mes dia - dias despues
+                let today = new Date();
+                let antes = new Date(AAAAMMDDda[0], AAAAMMDDda[1], AAAAMMDDda[2]);
+                let despues = new Date(AAAAMMDDdd[0], AAAAMMDDdd[1], AAAAMMDDdd[2]);
 
-            let AAAAMMDDda = diasAntes.split("-"); //año mes dia - dias antes
-            let AAAAMMDDdd = diasDespues.split("-"); //año mes dia - dias despues
-            let today = new Date();
-            let antes = new Date(AAAAMMDDda[0],AAAAMMDDda[1],AAAAMMDDda[2]);
-            let despues = new Date(AAAAMMDDdd[0],AAAAMMDDdd[1],AAAAMMDDdd[2]);
+                if (today > despues || today < antes) {
+                    alert("La fecha para el ingreso de esta nota no es vigente");
+                } else {
+                    let {detalle} = this.state;
+                    detalle[key].valorEvaluacion = text;
 
-            if(today > despues || today < antes){
-                alert("La fecha para el ingreso de esta nota no es vigente");
-            }else {
-                let {detalle} = this.state;
-                detalle[key].valorEvaluacion = text;
-                this.setState({
-                    detalle: detalle
-                })
+                    let evaluacionesCambiadas = this.state.evaluacionesCambiadas;
+                    let newEvalCambiadas = [];
+                    let add = true;
+                    for (let key2 in evaluacionesCambiadas) {
+                        if (evaluacionesCambiadas[key2].idEvaluacion === detalle[key].idEvaluacion) {
+                            if (text !== "") {
+                                evaluacionesCambiadas[key2].valorEvaluacion = text;
+                                newEvalCambiadas.push(evaluacionesCambiadas[key2]);
+                            }
+                            add = false;
+                        }
+                    }
+
+                    if (add) {
+                        let dateNow = new Date();
+                        let dateStr = dateNow.getFullYear() + "-" + (dateNow.getMonth() + 1) + "-" + dateNow.getDate() + " " + dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds() + ".0";
+                        let objectToSave = {
+                            idEvaluacion: detalle[key].idEvaluacion,
+                            valorEvaluacion: text,
+                            valorAnterior: "",
+                            fecha: dateStr
+                        };
+                        newEvalCambiadas.push(objectToSave)
+                    }
+
+                    this.setState({
+                        detalle: detalle,
+                        evaluacionesCambiadas: newEvalCambiadas
+                    })
+                }
             }
         }
     }
@@ -46,9 +103,9 @@ export default class Notas extends Component {
         const {detalle}= this.state;
         let evalArray = [];
 
-        let notaMax = this.props.route.params.notaMax;
-        let notaMin = this.props.route.params.notaMin;
-        let notaApru = this.props.route.params.notaApru;
+        let notaMax = parseInt(this.props.route.params.notaMax);
+        let notaMin = parseInt(this.props.route.params.notaMin);
+        let notaApru = parseInt(this.props.route.params.notaApru);
 
         let vaGanando = {backgroundColor: "rgba(12,249,0,0.45)", width: "50%"};
         let vaPerdiendo = {backgroundColor: "rgba(249,0,0,0.45)", width: "50%"};
@@ -57,13 +114,14 @@ export default class Notas extends Component {
 
         for(let key in detalle){
             let inputStyleAux = "";
-            if(detalle[key].valorEvaluacion === ''){
+            let nota = parseInt(detalle[key].valorEvaluacion);
+            if(!nota){
 
             }else{
-                if(detalle[key].valorEvaluacion > notaApru){
+                if(nota > notaApru){
                     inputStyleAux = vaGanando;
                 }else{
-                    if(detalle[key].valorEvaluacion === notaApru){
+                    if(nota === notaApru){
                         inputStyleAux = vaRegular;
                     }else {
                         inputStyleAux = vaPerdiendo;
@@ -83,7 +141,7 @@ export default class Notas extends Component {
                         inputStyle: inputStyleAux,
                         value: detalle[key].valorEvaluacion,
                         onChangeText: text => {
-                            this.changeGrade(text, detalle[key].puedeModificar, key, detalle[key].diasAntes, detalle[key].diasDespues);
+                            this.changeGrade(text, detalle[key].puedeModificar, key, detalle[key].diasAntes, detalle[key].diasDespues, true);
                         },
                     }}
 
@@ -97,19 +155,7 @@ export default class Notas extends Component {
                         <ScrollView>
                             {evalArray}
                         </ScrollView>
-
-
                     </View>
-                    <Button
-                        title="basck"
-                        buttonStyle={{
-                            width:'50%',
-
-
-                        }}
-                        onPress={() => this.props.navigation.pop()}
-
-                    />
                 </View>
             </View>
 

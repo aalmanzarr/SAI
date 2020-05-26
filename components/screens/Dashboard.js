@@ -33,8 +33,8 @@ class Dashboard extends Component {
                         height: 70,
                         backgroundColor: '#d0d3d4',
                     }}>
-                    <Icon name="university" size={25} color="#000000" />
-                    <Text style={{color: 'black', fontSize: 22, marginLeft: 5}}>SAI - SIRENA</Text>
+                    <Image source={{uri: 'https://i.imgur.com/0Uxn98O.png'}}
+                           style={{width: 300, height: 60}} />
 
 
                 </View>
