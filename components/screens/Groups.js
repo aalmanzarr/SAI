@@ -31,6 +31,7 @@ export default class Groups extends Component {
                 if(data.error || !data){
                     alert("Error accediendo a los datos del grupo");
                 }else{
+                    console.log("hey hey hey", data);
                     this.setState({
                         isLoading: false
                     });
@@ -69,6 +70,7 @@ export default class Groups extends Component {
         return (
             <View style={{flex: 1}}>
                 <View style={{flex: 1, width:'100%', height:'100%'}}>
+                    <Text style={{fontSize: 18, textAlign: "center", backgroundColor: "gray", zIndex: 999}}>Materias/{this.props.route.params.subjectCode}</Text>
                     <View>
                         {isLoading ? <ActivityIndicator size="large" color="#0000ff"/> : null}
                     </View>

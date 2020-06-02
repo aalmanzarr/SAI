@@ -39,11 +39,10 @@ async function saveNotas(semestre, materia, grupo, notas) {
 
         const requestOptions = {
             headers: header,
-            method: 'POST',
-            body: JSON.stringify(notas)
+            method: 'POST'
         };
 
-        let UrlPost = `http://daphne.eafit.edu.co/sirena-test/api/sirena?method=saveEvaluations&semestre=${semestre}&materia=${materia}&grupo=${grupo}`;
+        let UrlPost = `http://daphne.eafit.edu.co/sirena-test/api/sirena?method=saveEvaluations&semestre=${semestre}&materia=${materia}&grupo=${grupo}&notas=${JSON.stringify(notas)}`;
         console.log("URL POST", UrlPost);
         console.log("Object", JSON.stringify(notas));
         return fetch(UrlPost, requestOptions).then(handleResponse)

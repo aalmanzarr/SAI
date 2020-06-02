@@ -12,6 +12,9 @@ class Evaluations extends Component{
             detalle: [],
             Evaluation: [],
             evaluacionesCambiadas: [],
+            search: "",
+            searchArray: ["1"],
+            renderSearch: false,
             sortDir: "asc",
             canChange: true
         };
@@ -20,6 +23,8 @@ class Evaluations extends Component{
         this.compare2 = this.compare2.bind(this);
         this.sort = this.sort.bind(this);
         this.saveNotas = this.saveNotas.bind(this);
+        this.changeSearchValue = this.changeSearchValue.bind(this);
+        this.changeSearchArray = this.changeSearchArray.bind(this);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -53,13 +58,14 @@ class Evaluations extends Component{
         let notaMinima = Eval.escalaMinimo;
         let notaMaxima = Eval.escalaMaximo;
         let notaAprueba = Eval.escalaAprueba;
-
+        let isCualitative = Eval.tipoEscala.lastIndexOf("APROBADO/REPROBADO - CUA") !== -1;
         this.setState({
             detalle: detalle,
             Evaluation: Eval,
             notaMinima: notaMinima,
             notaMaxima: notaMaxima,
-            notaAprueba: notaAprueba
+            notaAprueba: notaAprueba,
+            isCualitative: isCualitative
         });
     }
 
@@ -103,6 +109,25 @@ class Evaluations extends Component{
         this.setState({detalle: aux, sortDir: sortDir})
     }
 
+    changeSearchValue(search){
+        this.setState({search: search});
+
+        if(search === ""){
+            this.setState({searchArray: [], renderSearch: false})
+        }
+    }
+
+
+    changeSearchArray(){
+        const {search, detalle} = this.state;
+
+        var searchArray = detalle.filter(function(item) {
+            return item.nombreEstudiante.lastIndexOf(search) !== -1 || item.codigoEstudiante.lastIndexOf(search) !== -1;
+        });
+
+        this.setState({searchArray: searchArray, renderSearch: true});
+    }
+
     navigate(detalle, key, notaMaxima, notaMinima, notaAprueba){
         let evaluacionesCambiadas = this.state.evaluacionesCambiadas;
         let evaluacionesCambiadasToSend = {};
@@ -121,7 +146,8 @@ class Evaluations extends Component{
             notaMin: notaMinima,
             codigoEstudiante: detalle[key].codigoEstudiante,
             notaApru: notaAprueba,
-            evaluacionesCambiadas: evaluacionesCambiadasToSend});
+            evaluacionesCambiadas: evaluacionesCambiadasToSend,
+            isCualitative: this.state.isCualitative});
     }
 
     saveNotas(){
@@ -137,7 +163,8 @@ class Evaluations extends Component{
                         evaluacionesCambiadas: [],
                         sortDir: "asc",
                         canChange: true
-                    })
+                    });
+                    alert("Notas guardadas correctamente");
                 }
                 console.log("data data data ", data);
             })
@@ -145,7 +172,7 @@ class Evaluations extends Component{
     }
 
     render() {
-        const {detalle, notaMinima, notaMaxima, notaAprueba, evaluacionesCambiadas} = this.state;
+        const {detalle, notaMinima, notaMaxima, notaAprueba, evaluacionesCambiadas, search, searchArray, renderSearch} = this.state;
 
         let greaterThanSuccess = {marginLeft: 3, borderLeftWidth: 5,
             borderLeftColor: 'green',
@@ -160,19 +187,37 @@ class Evaluations extends Component{
             borderStyle: 'dashed'};
 
         let evalArray = [];
-        for(let key in detalle){
-            evalArray.push(
-                <ListItem
-                    key={key}
-                    title={detalle[key].nombreEstudiante + " - " + detalle[key].codigoEstudiante}
-                    style={detalle[key].notaAcumulada > notaAprueba ? greaterThanSuccess : detalle[key].notaAcumulada === notaAprueba ? mediumSuccess : lowerThanSuccess}
-                    titleStyle={{fontSize: 25 }}
-                    chevron = {{ color: 'blue', size: 20 }}
-                    onPress={() => this.navigate(detalle, key, notaMaxima, notaMinima, notaAprueba)}
-                    bottomDivider
 
-                />
-            );
+        if(renderSearch) {
+            for (let key in searchArray) {
+                evalArray.push(
+                    <ListItem
+                        key={key}
+                        title={searchArray[key].nombreEstudiante + " - " + searchArray[key].codigoEstudiante}
+                        style={searchArray[key].notaAcumulada > notaAprueba ? greaterThanSuccess : searchArray[key].notaAcumulada === notaAprueba ? mediumSuccess : lowerThanSuccess}
+                        titleStyle={{fontSize: 25}}
+                        chevron={{color: 'blue', size: 20}}
+                        onPress={() => this.navigate(searchArray, key, notaMaxima, notaMinima, notaAprueba)}
+                        bottomDivider
+
+                    />
+                );
+            }
+        }else{
+            for (let key in detalle) {
+                evalArray.push(
+                    <ListItem
+                        key={key}
+                        title={detalle[key].nombreEstudiante + " - " + detalle[key].codigoEstudiante}
+                        style={detalle[key].notaAcumulada > notaAprueba ? greaterThanSuccess : detalle[key].notaAcumulada === notaAprueba ? mediumSuccess : lowerThanSuccess}
+                        titleStyle={{fontSize: 25}}
+                        chevron={{color: 'blue', size: 20}}
+                        onPress={() => this.navigate(detalle, key, notaMaxima, notaMinima, notaAprueba)}
+                        bottomDivider
+
+                    />
+                );
+            }
         }
 
         return (
@@ -180,11 +225,12 @@ class Evaluations extends Component{
                 <View style={{width:'100%', height:'100%'}}>
                     <View>
                         <View>
+                            <Text style={{fontSize: 18, textAlign: "center", backgroundColor: "gray"}}>Materias/{this.props.route.params.materia}/{this.props.route.params.grupo}</Text>
                             <ScrollView>
                                 <Input
                                     placeholder='Search'
-                                    rightIcon={{ type: 'font-awesome', name: 'search'}}
-                                    style={{marginBottom: 6, position: "relative", backgroundColor: "white"}}
+                                    rightIcon={{ type: 'font-awesome', name: 'search', onPress: this.changeSearchArray}}
+                                    onChangeText={(text) => this.changeSearchValue(text)}
                                 />
                                 <Icon
                                     name='sort'
