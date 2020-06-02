@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, Image, BackHandler} from 'react-native';
+import {Text, View, Image, BackHandler, AsyncStorage} from 'react-native';
 import { Card, ListItem, Button } from 'react-native-elements'
 import {IconButton} from "react-native-paper";
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -21,9 +21,40 @@ const Tab = createMaterialBottomTabNavigator();
 
 class Dashboard extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state ={
+            icon: "https://i.imgur.com/cUImhhs.png",
+            color : "#d0d3d4"
+        };
+        this.getColors = this.getColors.bind(this);
+        this.getColors();
+    }
 
+
+    async getColors() {
+        const value = await AsyncStorage.getItem('university');
+        let icon = "";
+        let color = "";
+        if (value !== null) {
+            console.log("value value value ", value);
+            if(value === "EAFIT"){
+                icon = "https://i.imgur.com/5l8Wcyy.png";
+                color = "#a8aabd";
+            }
+            if(value === "Bellas Artes"){
+                icon = "https://i.imgur.com/o4Ze811.png";
+                color = "#b89c9c";
+            }
+            this.setState({
+                color: color,
+                icon: icon
+            })
+        }
+    }
 
     render() {
+        const {icon, color} = this.state;
         return(
             <NavigationContainer independent={true}>
                 <View
@@ -34,9 +65,9 @@ class Dashboard extends Component {
                         justifyContent: 'center',
                         alignItems: 'center',
                         height: 70,
-                        backgroundColor: '#d0d3d4',
+                        backgroundColor: {color},
                     }}>
-                    <Image source={{uri: 'https://i.imgur.com/ezfzI8j.png'}}
+                    <Image source={{uri: icon}}
                            style={{width: 270, height: 50}} />
 
 

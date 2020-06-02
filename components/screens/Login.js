@@ -5,6 +5,7 @@ import {Button} from "react-native-elements";
 import React, {Component} from "react";
 import {SaiActions} from "../../_actions/sai.actions";
 import { AsyncStorage } from 'react-native';
+import {Picker} from "@react-native-community/picker";
 
 class Login extends Component{
     constructor(props) {
@@ -13,6 +14,7 @@ class Login extends Component{
             error: false,
             user: "",
             pass: "",
+            university: "EAFIT"
         };
 
     }
@@ -29,6 +31,10 @@ class Login extends Component{
                         await AsyncStorage.setItem(
                             'bearer',
                             data.Bearer
+                        );
+                        await AsyncStorage.setItem(
+                            'university',
+                            this.state.university
                         );
                         this.props.navigation.navigate('Main')
                     } catch (error) {
@@ -65,6 +71,15 @@ class Login extends Component{
                 justifyContent: 'center',
                 alignItems: 'center'}}>
                 <View style={{flex: 1}}>
+                    <Picker
+                        selectedValue={this.state.university}
+                        style={{marginLeft: 22, marginRight: 22}}
+                        onValueChange={(itemValue, itemIndex) =>
+                            this.setState({language: itemValue})
+                        }>
+                        <Picker.Item label="EAFIT" value="EAFIT" />
+                        <Picker.Item label="Bellas Artes" value="Bellas Artes" />
+                    </Picker>
                     <TextInput
                         style={
                             {
