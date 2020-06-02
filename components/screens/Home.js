@@ -1,9 +1,10 @@
-import {ActivityIndicator, Modal, Text, TouchableHighlight, View} from "react-native";
+import {ActivityIndicator, BackHandler, Modal, Text, TouchableHighlight, View,Alert} from 'react-native';
 import {NavigationContainer} from "@react-navigation/native";
 import Grades from "./Groups";
 import {Button} from "react-native-elements";
 import React, {Component} from "react";
 import {SaiActions} from "../../_actions/sai.actions";
+
 
 class Home extends Component{
     constructor(props) {
@@ -12,6 +13,31 @@ class Home extends Component{
             modalVisible: false,
             isLoading: false
         };
+ /**
+  * BACK DEL HOME AUN NO SE BIEN SI SALE DEL TODO O QUE HACE
+  * this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+
+
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+
+    handleBackButtonClick() {
+
+        Alert.alert("Hold on!", "Are you sure you want to go back?", [
+            {
+                text: "Cancel",
+                onPress: () => null,
+                style: "cancel"
+            },
+            { text: "YES", onPress: () => BackHandler.exitApp() }
+        ]);
+
+        return true;
+  **/
     }
 
     setModalVisible = (visible) => {
